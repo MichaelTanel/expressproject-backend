@@ -1,0 +1,11 @@
+version: '3'
+services:
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    command: npm run start
+    volumes: 
+      # Mount the host path, ., to the path "/usr/src/app" in the docker container.
+      # Do this so that nodemon can watch for file changes and restart within the container.
+      - .:/usr/src/app
