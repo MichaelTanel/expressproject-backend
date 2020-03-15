@@ -1,4 +1,5 @@
 import express from 'express';
+import { setCredentials } from '../controllers/auth';
 
 let router = express.Router();
 
@@ -20,6 +21,7 @@ router.put('/register', (req, res) => {
     }
 
     // TODO: Run db query
+    setCredentials(req.body.email, req.body.email);
 
     res.send({
         message: 'Successfully registrated',
