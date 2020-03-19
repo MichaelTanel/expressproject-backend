@@ -1,5 +1,5 @@
 import express from 'express';
-import auth from './api/auth';
+import router from './api/auth';
 import bodyParser from 'body-parser';
 
 // Setup express app
@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Enables all endpoints in auth file
-app.use(auth);
+app.use(router);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

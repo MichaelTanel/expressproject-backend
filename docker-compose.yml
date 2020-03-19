@@ -8,4 +8,14 @@ services:
     volumes: 
       # Mount the host path, ., to the path "/usr/src/app" in the docker container.
       # Do this so that nodemon can watch for file changes and restart within the container.
+      # Should move to a src folder.
       - .:/usr/src/app
+  database:
+    image: postgres:12
+    ports:
+      - "5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
