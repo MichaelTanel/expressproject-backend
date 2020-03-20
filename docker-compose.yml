@@ -10,12 +10,16 @@ services:
       # Do this so that nodemon can watch for file changes and restart within the container.
       # Should move to a src folder.
       - .:/usr/src/app
-  database:
+  postgres:
     image: postgres:12
     ports:
-      - "5432"
+      - "5432:5432"
+    # Can use env_file with a '-', or can use 'environment' with no dash and specify the username and password directly
+    env_file:
+      - .database-env
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
-  db-data:
+  postgres-data:
