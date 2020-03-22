@@ -1,3 +1,5 @@
+import models from '../models';
+
 class AuthController {
     register(req, res) {
         // If any of these are not set, fail registration.
@@ -16,19 +18,27 @@ class AuthController {
             });
         }
 
-        // TODO: Run db query
-        setCredentials(req.body.email, req.body.email);
-
-        res.send({
-            message: 'Successfully registrated',
-            success: true
+        // Insert into database;
+        models.User.create({
+            email: req.body.email,
+            password: req.body.pass
+        }).then(user => {
+            return res.status(200).send({
+                success: 'true',
+                message: 'User created successfully',
+                user
+            });
         });
     }
 
-    setCredentials(email, password) {
-        // Insert into database;
-        console.log('Email and password saved');
-        return true;
+    getAllUsers(req, res) {
+        models.User.findAll().then(users => {
+            return res.status(200).send({
+                success: 'true',
+                message: 'Retrieved all users',
+                users
+            })
+        });
     }
 }
 
