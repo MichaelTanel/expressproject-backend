@@ -4,7 +4,7 @@ class AuthController {
     register(req, res) {
         // If any of these are not set, fail registration.
         if (!req.body.email || !req.body.pass || !req.body.confirmPass) {
-            res.send({
+            res.status(401).send({
                 message: 'Either the email, or password fields were not set correctly',
                 success: false
             });
@@ -12,7 +12,7 @@ class AuthController {
 
         // Check that the 2 password fields match
         if (req.body.pass !== req.body.confirmPass) {
-            res.send({
+            res.status(401).send({
                 message: 'Passwords did not match',
                 success: false
             });
@@ -31,14 +31,8 @@ class AuthController {
         });
     }
 
-    getAllUsers(req, res) {
-        models.User.findAll().then(users => {
-            return res.status(200).send({
-                success: 'true',
-                message: 'Retrieved all users',
-                users
-            })
-        });
+    login(req, res) {
+        console.log('TODO');
     }
 }
 
