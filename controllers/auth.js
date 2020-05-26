@@ -28,6 +28,11 @@ class AuthController {
                 message: 'User created successfully',
                 user
             });
+        }).catch(err => {
+            return res.status(401).send({
+                success: false,
+                message: 'Email already exists'
+            });
         });
     }
 
