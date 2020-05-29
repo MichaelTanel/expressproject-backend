@@ -1,18 +1,6 @@
 import models from '../models';
 
 class AuthHelper {
-    createDatabaseUser(email, pass) {
-        // Insert into database;
-        models.User.create({
-            email: email,
-            password: pass
-        }).then(user => {
-            return true;
-        }).catch(err => {
-            return false;
-        });
-    }
-
     /**
      * Validate that the email, password and password confirmation are all set and valid.
      * @param {*} email User's email

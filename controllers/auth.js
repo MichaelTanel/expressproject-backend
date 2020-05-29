@@ -13,19 +13,23 @@ class AuthController {
             });
         }
 
-        if (authHelper.createDatabaseUser(req.body.email, req.body.pass)) {
+        // Insert into database;
+        models.User.create({
+            email: req.body.email,
+            password: req.body.pass
+        }).then(user => {
             return res.status(200).send({
                 success: 'true',
                 message: 'User created successfully',
                 user
             });
-        } else {
+        }).catch(err => {
             // TODO handle email already existing vs server error.
             return res.status(401).send({
                 success: false,
                 message: 'Email already exists'
             });
-        }
+        });
     }
 
     login(req, res) {
