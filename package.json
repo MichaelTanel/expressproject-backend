@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon app.js --exec babel-node --"
+    "start": "node_modules/nodemon/bin/nodemon.js app.js --exec node_modules/@babel/node/bin/babel-node.js --"
   },
   "author": "",
   "license": "ISC",
