@@ -1,8 +1,9 @@
 import models from '../models';
+import authHelper from '../helpers/auth';
 
 class AuthController {
     register(req, res) {
-        let validationResult = this.validateRegisterCredentials(req.body.email, req.body.pass, req.body.confirmPass);
+        let validationResult = authHelper.validateRegisterCredentials(req.body.email, req.body.pass, req.body.confirmPass);
 
         // If the validationResult has a message in it, send the error http response code and message.
         if (validationResult) {
@@ -12,7 +13,7 @@ class AuthController {
             });
         }
 
-        if (createDatabaseUser(req.body.email, req.body.pass)) {
+        if (authHelper.createDatabaseUser(req.body.email, req.body.pass)) {
             return res.status(200).send({
                 success: 'true',
                 message: 'User created successfully',
@@ -24,36 +25,6 @@ class AuthController {
                 success: false,
                 message: 'Email already exists'
             });
-        }
-    }
-
-    createDatabaseUser(email, pass) {
-        // Insert into database;
-        models.User.create({
-            email: email,
-            password: pass
-        }).then(user => {
-            return true;
-        }).catch(err => {
-            return false;
-        });
-    }
-
-    /**
-     * Validate that the email, password and password confirmation are all set and valid.
-     * @param {*} email User's email
-     * @param {*} pass User's password
-     * @param {*} confirmPass Confirmation of the user's password
-     */
-    validateRegisterCredentials(email, pass, confirmPass) {
-        // If any of these are not set, fail registration.
-        if (!email || !pass || !confirmPass) {
-            return 'Email or password fields were not set correctly';
-        }
-
-        // Check that the 2 password fields match
-        if (pass !== confirmPass) {
-            return 'Passwords did not match';
         }
     }
 
